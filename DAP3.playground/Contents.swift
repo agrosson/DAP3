@@ -19,7 +19,6 @@
  - Le texte ici constitue un bullet point.
  
  ## Sous Titre  2
- `canvas.moveBusForward()`
  
  `Titre du bullet point qui va suivre`
  - Le texte ici constitue un bullet point.
@@ -52,12 +51,12 @@ class Person {
     var name: String
     var life = 0
     var weapon: Weapon
-    var character: Charact
+    var charact: Charact
     
-    init(name: String, character: Charact){
+    init(name: String, charact: Charact){
         self.name = name
-        self.character = character
-        switch character {
+        self.charact = charact
+        switch charact {
         case .warrior:
             self.weapon = .sword
             self.life = 100
@@ -82,13 +81,11 @@ class Person {
         case .knight:
             self.weapon = .lance
             self.life = 50
-        default:
-            print("Erreur d'initialisation de Person")
         }
     }
   
     func description() {
-        print("My name is \(name), and i am a \(character)" + "\n  1. My weapon: \(weapon)" + "\n  2. My life level: \(life)")
+        print("My name is \(name), and i am a \(charact)" + "\n  1. My weapon: \(weapon)" + "\n  2. My life level: \(life)")
     }
     
 
@@ -102,7 +99,7 @@ enum Charact {
 
 print("essai")
 
-var monPemierPersonnage = Person(name: "Druidela", character: .wizard)
+var monPemierPersonnage = Person(name: "Druidela", charact: .wizard)
 
 
 monPemierPersonnage.name
