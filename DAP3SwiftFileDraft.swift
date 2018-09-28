@@ -69,7 +69,7 @@ class Person {
             self.weapon = .potion
             self.life = 80
         case .giant:
-            self.weapon = .hand
+            self.weapon = .none
             self.life = 200
         case .dwarf:
             self.weapon = .axe
@@ -98,6 +98,8 @@ class Person {
 class Team {
     var teamName: String
     var teamMembers = [Person]()
+    var teamLife: Int?
+    
     
     init(name : String){
         teamName = name
@@ -108,12 +110,24 @@ class Team {
         let unMember = createPerson()
         // add to the teamMembers
         teamMembers.append(unMember)
-        print("My team has \(teamMembers.count) " + (teamMembers.count > 1 ? "members" : "member") + " and " + (teamMembers.count > 1 ? "they" : "he") + " will present " + (teamMembers.count > 1 ? "themselves !" : "himself !"))
-        for i in teamMembers {
-            print(i.description())
-        }
-       
     }
+    
+    func presentation() -> String {
+        var presentationText = "My team \(teamName) has \(teamMembers.count) " + (teamMembers.count > 1 ? "members" : "member") + " and " + (teamMembers.count > 1 ? "they" : "he") + " will present " + (teamMembers.count > 1 ? "themselves !" : "himself !")
+        for person in teamMembers {
+            presentationText = presentationText + "\n \(person.description())"
+            
+        }
+        return presentationText
+    }
+    
+    
+}
+
+class Game {
+    var gameOver = false
+    var currentTeam: Team?
+    var currentTeamMember: Person?
     
 }
 
@@ -121,7 +135,7 @@ class Team {
 // MARK: - enum
 //======================
 enum Weapon {
-    case sword, potion, hand, axe, arrow, filter, knife, lance
+    case sword, potion, none, axe, arrow, filter, knife, lance
 }
 enum CharacterType {
     case warrior, wizard, giant, dwarf, elf, witch, soldier, knight
@@ -131,8 +145,15 @@ enum Animal {
     case wolf,snake,monkey
 }
 
-
-
+enum Event {
+    
+}
+//======================
+// MARK: - func
+//======================
+//======================
+// TODO: - CHECK THAT NAME IS UNIQUE
+//======================
 func createPerson() -> Person {
     print("What is the name of your new member?")
     var nameMember = ""
@@ -151,19 +172,27 @@ func createPerson() -> Person {
         
     )
     var typeMember: CharacterType?
-    let type = readLine()
-    switch type {
-    case "1": typeMember = .warrior
-    case "2": typeMember = .wizard
-    case "3": typeMember = .giant
-    case "4": typeMember = .dwarf
-    case "5": typeMember = .elf
-    case "6": typeMember = .witch
-    case "7": typeMember = .soldier
-    case "8": typeMember = .knight
-    default : print("Could your repeat your choice, I haven't understood !!")
-    }
+    var good = false
     
+    while good == false{
+    if let type = readLine(){
+        switch type {
+        case "1": typeMember = .warrior; good = true
+        case "2": typeMember = .wizard; good = true
+        case "3": typeMember = .giant; good = true
+        case "4": typeMember = .dwarf; good = true
+        case "5": typeMember = .elf; good = true
+        case "6": typeMember = .witch; good = true
+        case "7": typeMember = .soldier; good = true
+        case "8": typeMember = .knight; good = true
+        default : print("Could your repeat your choice, I haven't understood !!")
+        }
+    
+        //print("\u{001B}[2J")
+       
+    }
+  
+    }
     return Person(name: nameMember, characterType: typeMember!)
 }
 
@@ -207,6 +236,9 @@ print("Bonjour, nous allons créer une équipe et personnage et le décrire")
 
 var laTeam = createTeam()
 laTeam.chooseMember()
+print(laTeam.presentation())
 laTeam.chooseMember()
+print(laTeam.presentation())
 laTeam.chooseMember()
+print(laTeam.presentation())
 
